@@ -51,19 +51,42 @@ public class MenuPrincipal {
 					// usuário insira os valores manualmente
 					break;
 				case 2:
+				case 2:
 				System.out.println("\n--- CARREGAR ARQUIVO ---\n");
                 String path = selecionarArquivo();
-				if (path != null) {
-					try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
-						int lineCount = 0;
-						while (reader.readLine() != null) {
-							lineCount++;
-						}
-						System.out.println("Total de linhas no arquivo: " + lineCount);
-					} catch (IOException e) {
-						System.out.println("Erro ao carregar o arquivo: " + e.getMessage());
+				int lineCount = 0;
+        
+				// Contar as linhas
+				try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+					while (reader.readLine() != null) {
+						lineCount++;
 					}
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
+		
+				// Ler os valores para o vetor
+				int[] vetor = new int[lineCount];
+				int count = 0;
+		
+				try (BufferedReader reader2 = new BufferedReader(new FileReader(path))) {
+					String linha;
+					while ((linha = reader2.readLine()) != null) {
+						vetor[count] = Integer.parseInt(linha); // Lê a linha e converte para inteiro
+						count++;
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		
+				// Exibir os valores do vetor
+				for (int numeros : vetor) {
+					System.out.println(numeros);
+				}
+
+				
+					
+					break;
 
 				
 					
