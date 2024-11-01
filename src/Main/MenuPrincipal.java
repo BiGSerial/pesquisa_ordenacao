@@ -16,6 +16,7 @@ import dados.Item;
 public class MenuPrincipal {
 
 	static Scanner scanner = new Scanner(System.in);
+	static int tamanho;
 
 	public static void main(String[] args) throws IOException {
 
@@ -40,7 +41,7 @@ public class MenuPrincipal {
 			opcao = scanner.nextInt();
 			switch (opcao) {
 				case 1:
-					int tamanho;
+					
 					System.out.println("\n--- DEFINIR TAMANHO DO VETOR ---\n");
 					System.out.println("Defina o tamanho do vetor que ira ordenar: ");
 					tamanho = scanner.nextInt();
@@ -52,23 +53,19 @@ public class MenuPrincipal {
 				case 2:
 				System.out.println("\n--- CARREGAR ARQUIVO ---\n");
                 String path = selecionarArquivo();
-
 				if (path != null) {
-					System.out.println("Arquivo carregado com sucesso!");
-				} else {
-					System.out.println("Nenhum arquivo foi selecionado.");
+					try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+						int lineCount = 0;
+						while (reader.readLine() != null) {
+							lineCount++;
+						}
+						System.out.println("Total de linhas no arquivo: " + lineCount);
+					} catch (IOException e) {
+						System.out.println("Erro ao carregar o arquivo: " + e.getMessage());
+					}
 				}
-                // if (path != null) {
-                //     try {
-                //         // Vetor vetor = new Vetor(); // Supondo que você já tenha uma classe Vetor
-                //         // leitor10000(path, vetor);
-                //         System.out.println("Arquivo carregado com sucesso!");
-                //     } catch (IOException e) {
-                //         System.out.println("Erro ao carregar o arquivo: " + e.getMessage());
-                //     }
-                // } else {
-                //     System.out.println("Nenhum arquivo foi selecionado.");
-                // }
+
+				
 					
 					break;
 				case 3:
